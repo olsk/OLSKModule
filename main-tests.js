@@ -22,3 +22,23 @@ describe('OLSKModuleSetupKeys', function test_OLSKModuleSetupKeys() {
 
 });
 
+describe('OLSKModuleLifecycleSetup', function test_OLSKModuleLifecycleSetup() {
+
+	it('throws if not object', function () {
+		throws(function () {
+			mod.OLSKModuleSetupKeys(null);
+		}, /OLSKErrorInputNotValid/);
+	});
+
+	it('calls _SetupMethods', async function () {
+		const item = Math.random().toString();
+		const signature = 'Setup' + uRandomInt();
+
+		deepEqual(await mod.OLSKModuleLifecycleSetup({
+			[signature]: function () {
+				return item;
+			},
+		}), [item]);
+	});
+
+});
